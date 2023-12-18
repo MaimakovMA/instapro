@@ -4,6 +4,7 @@ import { posts, goToPage, getToken, renderApp, setPosts } from "../index.js";
 import { getPosts, removeLike, setLike } from "../api.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
+import { removeAllTags } from "../helpers.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -13,7 +14,7 @@ export function renderPostsPageComponent({ appEl }) {
       userName: post.user.name,
       userId: post.user.id,
       imageUrl: post.imageUrl,
-      description: post.description,
+      description: removeAllTags(post.description),
       userLogin: post.user.login,
       date: formatDistanceToNow(new Date(post.createdAt), { locale: ru }),
       

@@ -1,4 +1,5 @@
 import { getUserPosts, removeLike, setLike } from "../api.js";
+import { removeAllTags } from "../helpers.js";
 import { getToken, goToPage, posts, renderApp, setPosts } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
@@ -14,7 +15,7 @@ export function renderUserPostsPageComponent({ appEl }) {
         userName: post.user.name,
         userId: post.user.id,
         imageUrl: post.imageUrl,
-        description: post.description,
+        description: removeAllTags(post.description),
         userLogin: post.user.login,        
         date: formatDistanceToNow(new Date(post.createdAt), { locale: ru }),
         likes: post.likes,
