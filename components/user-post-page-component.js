@@ -1,10 +1,11 @@
 import { getUserPosts, removeLike, setLike } from "../api.js";
+import { removeAllTags } from "../helpers.js";
 import { getToken, goToPage, posts, renderApp, setPosts } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 
-// import { formatDistanceToNow } from "date-fns";
-// import { ru } from "date-fns/locale";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export function renderUserPostsPageComponent({ appEl }) {
 
@@ -14,10 +15,9 @@ export function renderUserPostsPageComponent({ appEl }) {
         userName: post.user.name,
         userId: post.user.id,
         imageUrl: post.imageUrl,
-        description: post.description,
-        userLogin: post.user.login,
-        date: new (Date),
-        // date: formatDistanceToNow(new Date(post.createdAt), { locale: ru }),
+        description: removeAllTags(post.description),
+        userLogin: post.user.login,        
+        date: formatDistanceToNow(new Date(post.createdAt), { locale: ru }),
         likes: post.likes,
         isLiked: post.isLiked,
         id: post.id,
